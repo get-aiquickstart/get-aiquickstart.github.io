@@ -3,3 +3,9 @@ site_url: https://aiquickst.art
 theme:
   name: material
 
+extra:
+  social:
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/getaiquickstart
+
+
