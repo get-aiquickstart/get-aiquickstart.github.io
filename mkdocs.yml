@@ -10,6 +10,7 @@ nav:
     - Overview: python/index.md
     - Onboarding: python/onboarding.md
     - GitHub Codespaces: python/github_codespaces.md
+    - GitHub Models: python/github_models.md
 
 extra:
   social:
