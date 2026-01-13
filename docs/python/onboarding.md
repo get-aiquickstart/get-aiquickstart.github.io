@@ -4,7 +4,7 @@ In this section, you will learn how to set up the development environment that w
 
 The first thing you will need is a free, personal GitHub account. If you have an account that is managed by your organization, it might not work because your administrator may have disabled some features that we will be using.  But if you don't have a free, personal GitHub account, you can create one.  Again, they're free!
 
-Go to the following URL which is the repository for the workshop materials: []
+Go to the following URL which is the repository for the workshop materials: [https://bit.ly/py_ai_quickstart](https://bit.ly/py_ai_quickstart).
 
 Click the **Fork** button in the upper right of the page.  This will create a copy of the repository in your GitHub account.
 
