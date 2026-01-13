@@ -3,6 +3,14 @@ site_url: https://aiquickst.art
 theme:
   name: material
 
+nav:
+  - Home: index.md
+
+  - AI with Python:
+    - Overview: python/index.md
+    - Onboarding: python/onboarding.md
+    - GitHub Codespaces: python/github_codespaces.md
+
 extra:
   social:
     - icon: fontawesome/brands/x-twitter
