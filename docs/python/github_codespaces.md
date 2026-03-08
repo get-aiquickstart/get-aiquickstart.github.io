@@ -6,10 +6,14 @@ The first exercise will require a Python package named `tiktoken`.  This package
 
 You'll install `tiktoken` from the command line.  Press *Ctrl-`* to open the terminal panel in the GitHub Codespace.
 
+Install the `tiktoken` package with the command:
+```bash
+pip install tiktoken
+```
+
 In the **Explorer** pane in the GitHub Codespace, create a new file in the `02-github-codespaces` folder and name it `tokens.py`.
 
 At the top of `tokens.py` import the `tiktoken` module.
-
 ```python
 import tiktoken
 ```
