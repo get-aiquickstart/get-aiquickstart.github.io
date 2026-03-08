@@ -11,6 +11,7 @@ nav:
     - Onboarding: python/onboarding.md
     - Python Development with GitHub Codespaces: python/github_codespaces.md
     - GitHub Models: python/github_models.md
+    - OpenAI SDK: python/openai.md
 
 extra:
   social:
