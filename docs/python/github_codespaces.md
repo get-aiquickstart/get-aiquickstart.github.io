@@ -46,3 +46,26 @@ To run `tokens.py` you can click the run button in the upper right of the GitHub
 ```bash
 $ python tokens.py
 ```
+
+You'll see a list of numbers.  Each number represents all or part of a word.  You can also convert the tokens back into text by decoding them with the `decode` method.
+
+```python
+decoded_text = enc.decode(tokens)
+print(decoded_text)
+```
+
+Run the file `tokens.py` again to see the decoded text.  As a sanity check, compare the original and decoded text.
+```python
+if decoded_text == text:
+  print("Original and decoded text are the same")
+else:
+  print("Something went wrong")
+```
+
+Again, each numeric token represents all or part of a word.  On average each token represents about three-quarters of a word.  Thus, 1000 tokens would be needed to represent roughly 750 words.  Let's test this theory by computing the ratio of words in the text to tokens.
+```python
+no_words = len(text.split(" "))
+no_tokens = len(tokens)
+print(f"The text has {no_words} and was encoded into {no_tokens} tokens.")
+print(f"Ratio of words to tokens: {no_words / no_tokens}")
+```
