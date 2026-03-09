@@ -1,5 +1,7 @@
 # GitHub Codespaces
 
+[Link to GitHub Repository](https://github.com/douglasstarnes/getaiquickstart/tree/main/02-github-codespaces)
+
 In this section, you will get some practice using GitHub Codepsaces to write and execute Python code.  And you will also run Python code inside of a Jupyter notebook.
 
 The first exercise will require a Python package named `tiktoken`.  This package implements the tokenization algorithm used by some of the LLMs from OpenAI.  
