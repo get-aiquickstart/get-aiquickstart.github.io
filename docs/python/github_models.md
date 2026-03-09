@@ -16,6 +16,11 @@ Also notice the tokens per request.  For the **Low** rate limit tier this is 800
 
 Notice that the **High** rate limit tier is more restrictive.  This limit is applied to the larger models.  There are also special limits applied to the embedding models that we won't make use of in this workshop.  And there are also some models with custom rate limits that depend on the model itself.  For example, Grok-3 and DeepSeek.  And for GPT-5 and the OpenAI reasoning models, those are not available with the **Copilot Free** tier.  But we will still have plenty of free models to use for the workshop.
 
+> Note: While GitHub Models does not offer free access to GPT-5 models, OpenAI itself does have a free tier that includes GPT-5 models.  There are three caveats:
+> 1. To get the free tier, you must add a billing method
+> 2. If you exceed the free tier limit, you will automatically be billed for any overages
+> 3. Any data used with the free tier will be used for training models and will not be private
+
 Go back to the model information page.  Click on the **Playground** button in the upper right of the page.  This brings up a ChatGPT-like interface where you can interact with the model.  Enter a prompt in the text box at the bottom with the placeholder *Type your prompt...*.  Something like:
 ```
 What are three advantages of OpenAI GPT-4.1 over GPT-3.5?
