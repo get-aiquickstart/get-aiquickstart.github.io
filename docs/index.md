@@ -4,4 +4,4 @@ Welcome to AI Quickstart!
 
 This is the easiest way to learn AI, and for free!
 
-This is a work in progress, check back often.
+Currently, you can access the Python workshop.  In the future, workshops in other languages will be added.

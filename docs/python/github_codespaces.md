@@ -1,5 +1,7 @@
 # GitHub Codespaces
 
+[Link to GitHub Repository](https://github.com/douglasstarnes/getaiquickstart/tree/main/02-github-codespaces)
+
 In this section, you will get some practice using GitHub Codepsaces to write and execute Python code.  And you will also run Python code inside of a Jupyter notebook.
 
 The first exercise will require a Python package named `tiktoken`.  This package implements the tokenization algorithm used by some of the LLMs from OpenAI.  
@@ -45,4 +47,27 @@ print(tokens)
 To run `tokens.py` you can click the run button in the upper right of the GitHub Codespace.  Alternatively, you can open the terminal panel with *Ctrl-`* and invoke the Python interpreter, passing it the name of the file to execute.
 ```bash
 $ python tokens.py
+```
+
+You'll see a list of numbers.  Each number represents all or part of a word.  You can also convert the tokens back into text by decoding them with the `decode` method.
+
+```python
+decoded_text = enc.decode(tokens)
+print(decoded_text)
+```
+
+Run the file `tokens.py` again to see the decoded text.  As a sanity check, compare the original and decoded text.
+```python
+if decoded_text == text:
+  print("Original and decoded text are the same")
+else:
+  print("Something went wrong")
+```
+
+Again, each numeric token represents all or part of a word.  On average each token represents about three-quarters of a word.  Thus, 1000 tokens would be needed to represent roughly 750 words.  Let's test this theory by computing the ratio of words in the text to tokens.
+```python
+num_words = len(text.split(" "))
+num_tokens = len(tokens)
+print(f"The text has {num_words} and was encoded into {num_tokens} tokens.")
+print(f"Ratio of words to tokens: {num_words / num_tokens}")
 ```

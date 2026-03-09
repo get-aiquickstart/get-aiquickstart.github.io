@@ -9,8 +9,10 @@ nav:
   - AI with Python:
     - Overview: python/index.md
     - Onboarding: python/onboarding.md
-    - GitHub Codespaces: python/github_codespaces.md
+    - Python Development with GitHub Codespaces: python/github_codespaces.md
     - GitHub Models: python/github_models.md
+    - OpenAI SDK: python/openai.md
+    - LangChain: python/langchain.md
 
 extra:
   social:
