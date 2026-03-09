@@ -12,6 +12,7 @@ nav:
     - Python Development with GitHub Codespaces: python/github_codespaces.md
     - GitHub Models: python/github_models.md
     - OpenAI SDK: python/openai.md
+    - LangChain: python/langchain.md
 
 extra:
   social:
