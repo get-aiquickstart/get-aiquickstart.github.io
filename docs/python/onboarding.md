@@ -1,4 +1,4 @@
-# 01 - Onboarding
+# Onboarding
 
 In this section, you will learn how to set up the development environment that will be used throughout the rest of the workshop.
 
