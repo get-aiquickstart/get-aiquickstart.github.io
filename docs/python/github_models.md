@@ -30,4 +30,15 @@ Again, similar to ChatGPT, the playground will display the generated response an
 
 In the left sidebar you can again see information about the model  For example, the training cutoff date is May of 2024.  And the **Context** is the number of tokens for the input and output per request if you are using a paid pricing plan.  For the free plan, you can ignore this because as we just saw, you are restricted to 8000 tokens in and 4000 tokens out.  
 
-At the top of the sidebar, click the **Parameters** tab.  Here you can set values to configure how the model behaves.  
+At the top of the sidebar, click the **Parameters** tab.  Here you can set values to configure how the model behaves.  The first of these is the *system message*.  In an LLM-based chat application, the system messages defines how the model behaves by configuring goals, rules and restrictions for the model to observe.  The often used default system message is something like "You are a helpful assistant."  However, this is too generic for most chatbots.  
+
+Look in the `03-github-models` folder in the GitHub repository for this workshop.  You'll see a file named `customer_service_prompt.txt`.  Open it to see an example of more specific system prompt.  It outlines:
+* Goals: "greet the customer", "acknowledge their concern", "provide clear, step-by-step help".
+* Rules: "use a friendly and professional tone", "apologize when appropriarte"
+* Restrictions: "if you don't know the answer, offer to escalate or find more information"
+
+Copy this prompt and paste it in the **System prompt** textarea in the **Parameters** tab.
+
+Scroll down in the tab to see several more values that will influence the behavoid of the LLM.  The first is self explanatory. **Max Completion Tokens** limits the number of tokens produced in the response.  Keep in mind that on the **CoPilot Free** plan, you are restricted to rate limits that could be lower that the value in the playground.
+
+The next two parameters, **Temperature** and **Top P**, cooperate and determine the expressiveness of the response.  When generating a response, the LLM will collect a pool of candidate tokens that are closely related to the request.  Then the request will be composed of tokens selected from that pool.  The **Top P** parameter determines the size of the pool of tokens.  The **Temperature** pararmeter determines how randomly the tokens will be selected.  Thus setting the 
