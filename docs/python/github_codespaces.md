@@ -1,8 +1,10 @@
-# GitHub Codespaces
+# Python Development with GitHub Codespaces
 
 [Link to GitHub Repository](https://github.com/douglasstarnes/getaiquickstart/tree/main/02-github-codespaces)
 
 In this section, you will get some practice using GitHub Codepsaces to write and execute Python code.  And you will also run Python code inside of a Jupyter notebook.
+
+## Tokenization
 
 The first exercise will require a Python package named `tiktoken`.  This package implements the tokenization algorithm used by some of the LLMs from OpenAI.  
 
@@ -49,7 +51,11 @@ To run `tokens.py` you can click the run button in the upper right of the GitHub
 $ python tokens.py
 ```
 
-You'll see a list of numbers.  Each number represents all or part of a word.  You can also convert the tokens back into text by decoding them with the `decode` method.
+You'll see a list of numbers.  Each number represents all or part of a word.  
+
+## Exploring Tokens
+
+You can also convert the tokens back into text by decoding them with the `decode` method.
 
 ```python
 decoded_text = enc.decode(tokens)

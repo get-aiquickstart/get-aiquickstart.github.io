@@ -2,6 +2,8 @@
 
 In this section of the workshop you will start to write code again actual LLMs, including those from OpenAI!  You're going to use a service called GitHub Models that hosts LLMs.  You can use GitHub Models, with limits, for free.  All you need is the same free, personal GitHub account that you used to create a GitHub Codespace in the previous section.
 
+## Exploring the GitHub Models Catalog
+
 To get started with GitHub Models go to [https://gh.io/models](https://gh.io/models).
 
 This will take you to GitHub Models on the GitHub Marketplace.  And you can see a few of the models hosted.  Click the link to **explore the full model catalog** to see the entire list of models hosted on GitHub Models.
@@ -21,6 +23,8 @@ Notice that the **High** rate limit tier is more restrictive.  This limit is app
 > 2. If you exceed the free tier limit, you will automatically be billed for any overages
 > 3. Any data used with the free tier will be used for training models and will not be private
 
+## Experimenting with Models Using a Playground
+
 Go back to the model information page.  Click on the **Playground** button in the upper right of the page.  This brings up a ChatGPT-like interface where you can interact with the model.  Enter a prompt in the text box at the bottom with the placeholder *Type your prompt...*.  Something like:
 ```
 What are three advantages of OpenAI GPT-4.1 over GPT-3.5?
@@ -29,6 +33,8 @@ What are three advantages of OpenAI GPT-4.1 over GPT-3.5?
 Again, similar to ChatGPT, the playground will display the generated response and render any markdown.  Also notice in the upper left of the playground, you can see the total number of input tokens, output tokens and the time to generate the response.
 
 In the left sidebar you can again see information about the model  For example, the training cutoff date is May of 2024.  And the **Context** is the number of tokens for the input and output per request if you are using a paid pricing plan.  For the free plan, you can ignore this because as we just saw, you are restricted to 8000 tokens in and 4000 tokens out.  
+
+## Model Parameters
 
 At the top of the sidebar, click the **Parameters** tab.  Here you can set values to configure how the model behaves.  The first of these is the *system message*.  In an LLM-based chat application, the system messages defines how the model behaves by configuring goals, rules and restrictions for the model to observe.  The often used default system message is something like "You are a helpful assistant."  However, this is too generic for most chatbots.  
 
