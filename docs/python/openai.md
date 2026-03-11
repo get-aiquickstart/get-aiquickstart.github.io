@@ -20,8 +20,27 @@ Click the green **Generate token** button.  A popup appears so you can review th
 
 ## Storing the Developer Token 
 
-You need a place to store your new developer token.  One popular solution is a `.env` file.  When the `.env` file is loaded using the `python-dotenv` package, you can read the token as an environment variable.  GitHub Codespaces will automatically detect and import enviroment variables from a `.env` file.
+You need a place to store your new developer token.  One popular solution is a `.env` file.  A `.env` file contains a collection of key/value pairs and you would add one for your developer token.  When the `.env` file is loaded using the `python-dotenv` package, you can read the token as an environment variable.  
 
-Return to the **Settings** page and in the left sidebar scroll down to the **Code, planning, and automation** section.  Click **Codespaces**.  In the right pane, at the top, under **Dotfiles** check the box next to **Automatically install dotfiles**.
+Since you are using a GitHub Codespace, there is a more convenient option, store the developer token in a secret.  Secrets are a collection of sensitive values that you want to store and access securely.  Once a secret has been added, you'll be able to access it inside of a Codespace as an environment variable.  
 
-Since you are using a GitHub Codespace, there is a more convenient option, 
+From the **Settings** page, scroll down on the left side to **Code, planning and automation** and click on **Codespaces**.  Look at the **Secrets** section.  Click the **New Secret** button.  Here you provide a name for the secret (I'm using `GH_MODELS_TOKEN`), and paste you developer token in the textarea for the value.
+
+Note the **Repository access** dropdown.  You must explicity give repositories access to a secret.  And also, as the message below the dropdown reminds us, at least 1 repository must be selected for the secret to be active.  In the dropdown, select the repository you have been using for the workshop.  Click the **Add secret** button.  If you have any Codespaces open, you'll need to refresh them before they can access the secret.
+
+## Chatting with the OpenAI SDK
+
+In your codespace, in the 04-openai-sdk folder, create a new file named `chat.py`.  At the top of the file, import the `os` module from the Python standard library.  
+```python
+import os
+```
+
+You will use the `os` module to retrieve the value of the secret you added.
+```python
+GH_MODELS_TOKEN = os.getenv("GH_MODELS_TOKEN")
+```
+
+As a sanity check, print the last four characters of the token
+```python
+print(GH_MODELS_TOKEN[-4:])
+```
