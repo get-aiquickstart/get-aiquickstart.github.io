@@ -28,7 +28,7 @@ From the **Settings** page, scroll down on the left side to **Code, planning and
 
 Note the **Repository access** dropdown.  You must explicity give repositories access to a secret.  And also, as the message below the dropdown reminds us, at least 1 repository must be selected for the secret to be active.  In the dropdown, select the repository you have been using for the workshop.  Click the **Add secret** button.  If you have any Codespaces open, you'll need to refresh them before they can access the secret.
 
-## Chatting with the OpenAI SDK
+## Retrieving the Developer Token in Code
 
 In your codespace, in the 04-openai-sdk folder, create a new file named `chat.py`.  At the top of the file, import the `os` module from the Python standard library.  
 ```python
@@ -43,4 +43,63 @@ GH_MODELS_TOKEN = os.getenv("GH_MODELS_TOKEN")
 As a sanity check, print the last four characters of the token
 ```python
 print(GH_MODELS_TOKEN[-4:])
+```
+
+Run the file.  If you see 4 random characters printed to the terminal pane, you're ready to go!
+
+## Connecting to the OpenAI API
+
+Next you'll need to create a client object to connect to the OpenAI API.  The `OpenAI` client class lives in the `openai` module from the `openai` package you installed earlier.  Now you can import it.
+```python
+from openai import OpenAI
+```
+
+The `OpenAI` client class, for use with GitHub Models, expects two keyword arguments.  The first is the `base_url` endpoint to access the REST API for GitHub Models.  This is always `https://models.github.ai/inference`.  The second is the `api_key` which will be the GitHub developer token stored in the secrets.  You've already retrieved this value.  The code to create the OpenAI client is:
+```python
+client = OpenAI(
+    base_url="https://models.github.ai/inference",
+    api_token=GH_MODELS_TOKEN
+)
+```
+
+## Creating Messages
+
+Recall that in the playground you used a system message to define how the model behaves.  You can also send a system message with the OpenAI SDK.  The messages are constructed using Python dictionaries.  Each message dictionary has two keys: `role` that we will look at soon, and `content` which is the prompt in this case.  For system messages the `role` is always set to `system`.  
+
+There are four roles: system, user, assistant and tool.  You just created a system message.  The user message is the prompt that you, the user, send to the model.  The assistant message is the response from the model.  The tool message is used to access external services and tools and is beyond the scope of this workshop.
+
+Now you can create the system message.  Read the  `customer_service_prompt.txt` file and use it for the `content` key.
+```python
+with open("customer_service_prompt.txt", "r") as f:
+    customer_service_prompt = "".join(f.readlines())
+
+system_message = {
+    "role": "system",
+    "content": customer_service_prompt
+}
+```
+
+And for the user message, create another dictionary with a `role` key set to `user`:
+```python
+user_message = {
+    "role": "user",
+    "content": "I was charged twice for the same item. What do I do?"
+}
+```
+
+## Chatting with the Model
+
+To send the messages to the model, and get the generated response, you call `client.chat.completions.create`.  This method accepts a list of messages.  These are the dictionaries created in the previous section.  This is also where you tell the API which model you want to use.  Optionally, you can tell the API the temperature and top_p to use.  And there are other keyword arguments for parameters that are beyond the scope of this workshop.
+```python
+response = client.chat.completions.create(
+    messages=[system.message, user_message],
+    model="openai/gpt-4.1-nano",
+    temperature=0.3,
+    top_p=0.7
+)
+```
+
+The `create` method will return a response that can have multiple completions. (By default it is just one.)  Those completions are in a list of `choices`.  Each choice has a `message` which has `content`.  That `content` is the text of the response.
+```python
+print(response.choices[0].message.content)
 ```
