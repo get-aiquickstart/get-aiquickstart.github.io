@@ -56,6 +56,8 @@ Using the controls in the **Parameters** tab set
 
 These settings - low **Temperature** and high **Top P** - will yield a response that is professional (the low **Temperature**) while at the same time not as dry as a lower **Top P** value would generate.
 
+## Chatting with the Models
+
 Using the text input at the bottom of the playground, send the prompt `I was charged twice for the same item. What do I do?" You'll see the response in the chat session window.  Keep in mind that playground usage counts towards your free quota.  So you just used one of your 150 daily requests for gpt-4.1-nano.
 
 The playground also has a feature that allows you to compare the response from two models.  Next to the **Model** dropdown list in the upper left of the playground, click the **Compare** button.  Select **OpenAI GPT-4.1** from the list of models.  Notice that the **Parameters** were copied over from the existing GPT-4.1-nano model.  Copy the prompt: `I was charged twice for the same item. What do I do?` into one model's prompt box.  It will be copied into the other.  Push the send button.
