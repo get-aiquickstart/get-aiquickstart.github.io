@@ -105,3 +105,5 @@ The `create` method will return a response that can have multiple completions. (
 ```python
 print(response.choices[0].message.content)
 ```
+
+## Creating a Chatbot with Message History
