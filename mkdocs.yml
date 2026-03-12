@@ -1,10 +1,10 @@
 site_name: AI Quickstart
 site_url: https://aiquickst.art
+
 theme:
   name: material
-  analytics:
-    provider: google
-    property: G-3GTSPZR1PG
+  features:
+    - navigation.instant
 
 nav:
   - Home: index.md
@@ -18,7 +18,9 @@ nav:
     - LangChain: python/langchain.md
 
 extra:
+  analytics:
+    provider: google
+    property: G-3GTSPZR1PG
   social:
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/getaiquickstart
-
