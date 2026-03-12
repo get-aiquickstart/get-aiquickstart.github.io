@@ -18,5 +18,7 @@ extra:
   social:
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/getaiquickstart
-
+  analytics:
+    provider: google
+    property: G-3GTSPZR1PG
 
