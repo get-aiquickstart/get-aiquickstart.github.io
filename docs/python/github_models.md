@@ -47,4 +47,14 @@ Copy this prompt and paste it in the **System prompt** textarea in the **Paramet
 
 Scroll down in the tab to see several more values that will influence the behavoid of the LLM.  The first is self explanatory. **Max Completion Tokens** limits the number of tokens produced in the response.  Keep in mind that on the **CoPilot Free** plan, you are restricted to rate limits that could be lower that the value in the playground.
 
-The next two parameters, **Temperature** and **Top P**, cooperate and determine the expressiveness of the response.  When generating a response, the LLM will collect a pool of candidate tokens that are closely related to the request.  Then the request will be composed of tokens selected from that pool.  The **Top P** parameter determines the size of the pool of tokens.  The **Temperature** pararmeter determines how randomly the tokens will be selected.  Thus setting the 
+The next two parameters, **Temperature** and **Top P**, cooperate and determine the expressiveness of the response.  When generating a response, the LLM will collect a pool of candidate tokens that are closely related to the request.  Then the request will be composed of tokens selected from that pool.  The **Top P** parameter determines the size of the pool of tokens.  The **Temperature** pararmeter determines how randomly the tokens will be selected.  Thus setting the **Temperature** and **Top P** to low values will yield more predictable and repeatable responses.  On the other end of the scale, setting them to high values will yield more diverse and creative responses.
+
+Using the controls in the **Parameters** tab set
+* **Max Completion Tokens** to `2000`
+* **Temperature** to `0.3`
+* **Top P** to `0.7`
+
+These settings - low **Temperature** and high **Top P** - will yield a response that is professional (the low **Temperature**) while at the same time not as dry as a lower **Top P** value would generate.
+
+Using the text input at the bottom of the playground, send the prompt `I was charged twice for the same item. What do I do?" You'll see the response, using the rendered Markdown, in the chat session window.  That just used one of your 150 requests for the day.  Keep in mind that playground request are part of your quota, so you can run through them faster than your think.  But also, the rate limits are per model.
+
