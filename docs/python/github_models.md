@@ -22,6 +22,7 @@ Notice that the **High** rate limit tier is more restrictive.  This limit is app
 > 1. To get the free tier, you must add a billing method
 > 2. If you exceed the free tier limit, you will automatically be billed for any overages
 > 3. Any data used with the free tier will be used for training models and will not be private
+> See the [OpenAI blog](https://help.openai.com/en/articles/10306912-sharing-feedback-evaluation-and-fine-tuning-data-and-api-inputs-and-outputs-with-openai) for more details.
 
 ## Experimenting with Models Using a Playground
 
