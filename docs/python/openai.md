@@ -54,7 +54,7 @@ Next you'll need to create a client object to connect to the OpenAI API.  The `O
 from openai import OpenAI
 ```
 
-The `OpenAI` client class, for use with GitHub Models, expects two keyword arguments.  The first is the `base_url` endpoint to access the REST API for GitHub Models.  This is always `https://models.github.ai/inference`.  The second is the `api_key` which will be the GitHub developer token stored in the secrets.  You've already retrieved this value.  The code to create the OpenAI client is:
+The `OpenAI` client class, for use with GitHub Models, expects two keyword arguments.  The first is the `base_url` endpoint to access the REST API (which is OpenAI compatible) for GitHub Models.  This is always `https://models.github.ai/inference`.  The second is the `api_key` which will be the GitHub developer token stored in the secrets.  You've already retrieved this value.  The code to create the OpenAI client is:
 ```python
 client = OpenAI(
     base_url="https://models.github.ai/inference",
@@ -87,9 +87,9 @@ user_message = {
 }
 ```
 
-## Chatting with the Model
+## Chatting Using the SDK
 
-To send the messages to the model, and get the generated response, you call `client.chat.completions.create`.  This method accepts a list of messages.  These are the dictionaries created in the previous section.  This is also where you tell the API which model you want to use.  Optionally, you can tell the API the temperature and top_p to use.  And there are other keyword arguments for parameters that are beyond the scope of this workshop.
+To send the messages to the model, and get the generated response, you call `client.chat.completions.create`.  This method accepts a list of messages.  These are the dictionaries created in the previous section.  This is also where you tell the SDK which model you want to use.  Optionally, you can tell the SDK the temperature and top_p to use.  And there are other keyword arguments for parameters that are beyond the scope of this workshop.
 ```python
 response = client.chat.completions.create(
     messages=[system.message, user_message],
