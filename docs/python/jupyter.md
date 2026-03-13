@@ -1,0 +1,3 @@
+# Interactive Development with Jupyter Notebook
+
+Most developers are familiar with the development workflow where you store code in a file, and then execute it (directly with an interpreter or indirectly with a compiler) all at once.  Then you evaluate the effectiveness of the code, make edits and improvements, and execute it all at once again.  In the data science and machine learning area, this workflow still has its place.  When prototyping and experimenting, interactive computing can provide benefits that we will cover in this section.

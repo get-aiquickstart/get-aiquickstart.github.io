@@ -15,6 +15,7 @@ nav:
     - Python Development with GitHub Codespaces: python/github_codespaces.md
     - GitHub Models: python/github_models.md
     - OpenAI SDK: python/openai.md
+    - Interactive Development with Jupyter Notebook: python/jupyter.md
     - LangChain: python/langchain.md
 
 extra:
