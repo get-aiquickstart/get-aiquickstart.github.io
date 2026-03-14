@@ -1,6 +1,6 @@
 # GitHub Models
 
-In this section of the workshop you will start to write code again actual LLMs, including those from OpenAI!  You're going to use a service called GitHub Models that hosts LLMs.  You can use GitHub Models, with limits, for free.  All you need is the same free, personal GitHub account that you used to create a GitHub Codespace in the previous section.
+In this section of the workshop you will start to use actual LLMs, including those from OpenAI!  You're going to use a service called GitHub Models that hosts LLMs.  You can use GitHub Models, with limits, for free.  All you need is the same free, personal GitHub account that you used to create a GitHub Codespace in the previous section.
 
 ## Exploring the GitHub Models Catalog
 
