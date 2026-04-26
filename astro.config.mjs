@@ -16,10 +16,10 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        {
-          label: "Overview",
-          slug: "workshop/module01",
-        },
+        // {
+        //   label: "Overview",
+        //   slug: "workshop/module01",
+        // },
         {
           label: "Onboarding",
           slug: "workshop/module02",
