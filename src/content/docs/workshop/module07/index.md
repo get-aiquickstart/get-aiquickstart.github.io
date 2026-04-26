@@ -74,3 +74,19 @@ When using the OpenAI SDK you had to drill down into the response object to get 
 ```python
 parser = StrOutputParser()
 ```
+
+## Constructing a chain
+
+We now have three components:
+
+- `prompt` to create a prompt from a template
+- `llm` to generate a response based on a prompt
+- `parser` to extract the content from the response
+
+In other words the result of `prompt` is the input to `llm` and the result of `llm` is the input to `parser` and the result of `parser` is the content we expect. We use the components along with LangChain Expression Language, or LCEL, to form a chain.
+
+```python
+chain = prompt | llm | parser
+```
+
+The pipe (|) operator connects the output of a component to the input of the next one.
