@@ -66,3 +66,11 @@ llm = ChatOpenAI(
     temperature=0.7
 )
 ```
+
+## Output parsers
+
+When using the OpenAI SDK you had to drill down into the response object to get the message content. In the previous module this was simply a string but LLMs can also generate structured output such as JSON and other formats as well. Output parsers help extract content from the response in the proper format. In this example, the content will be a string. The `StrOutputParser` class will work for this purpose.
+
+```python
+parser = StrOutputParser()
+```
