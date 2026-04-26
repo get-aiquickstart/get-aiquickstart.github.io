@@ -44,6 +44,10 @@ export default defineConfig({
           label: "LangChain",
           slug: "workshop/module07",
         },
+        {
+          label: "Retrieval Augmented Generation (RAG)",
+          slug: "workshop/module08",
+        }
       ],
     }),
   ],

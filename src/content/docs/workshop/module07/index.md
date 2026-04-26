@@ -3,9 +3,9 @@ title: LangChain
 description: Using the LangChain package to orchestrate LLM applications
 ---
 
-The simple Python demos you have written with the OpenAI SDK have some noise that can be removed. As your applications get more complex, dealing with noise won't be the only issue. Managing the different pieces of the LLM application such as models, prompts and content will need extra attention. As these problems come up often, there are Python packages to help manage, or orchestrate the complex nature. LangChain is the package we will use in this workshop.
+The simple Python demos you have seen using the OpenAI SDK have some noise that can be removed. As your applications get more complex, dealing with noise won't be the only problem. Managing the different pieces of an LLM application such as models, prompts and content will require extra attention. As these problems come up often, there are Python packages to help manage, or orchestrate the complex nature of real-world LLM applications. We will see how to use one of these packages, LangChain, in this module.
 
-Inside of the LangChain package, the different pieces of the LLM application are defined in reusable classes. Then you sequence the pieces as components in a chain. The chain is then invoked to return an output.
+Inside of the LangChain package, the different pieces of the LLM application are represented by reusable classes. Then you sequence the pieces as components in a chain. The chain is then invoked to return an output.
 
 ## LangChain packages and modules
 
@@ -39,12 +39,10 @@ GITHUB_MODELS_ACCESS_TOKEN = os.getenv("GITHUB_MODELS_ACCESS_TOKEN")
 The `ChatPromptTemplate` class creates a reusable template that is the used to prompt a chat model. There are several ways to use it but the most straightforward is by calling the `from_message` class method. The `from_messages` method accepts a list of messages. The OpenAI SDK accepted a list of Python dictionaries for the messages. LangChain uses tuples instead of dictionaries.
 
 ```python
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", "You are an expert Python tutor."),
-        ("user", "Example what a {topic} is, with one runnable example,")
-    ]
-)
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are an expert Python tutor."),
+    ("user", "Example what a {topic} is, with one runnable example,"),
+])
 ```
 
 Since this is a template, the `{topic}` in the user message tuple will be replaced with a value when the chain is invoked.
@@ -63,7 +61,7 @@ llm = ChatOpenAI(
     base_url="https://models.github.ai/inference",
     api_key=GITHUB_MODELS_ACCESS_TOKEN,
     model="gpt-4o-mini",
-    temperature=0.7
+    temperature=0.7,
 )
 ```
 
