@@ -89,4 +89,11 @@ In other words the result of `prompt` is the input to `llm` and the result of `l
 chain = prompt | llm | parser
 ```
 
-The pipe (|) operator connects the output of a component to the input of the next one.
+The pipe (`|`) operator connects the output of a component to the input of the next one.
+
+To send the prompt, call the `invoke` method on the `chain`. Pass `invoke` a dictionary with a key for each placeholder in the prompt template. For this demo, there is only one. Since the response is a plain string, we can using the `print` function to display it.
+
+```python
+response = chain.invoke({"topic": "decorator"})
+print(response)
+```
