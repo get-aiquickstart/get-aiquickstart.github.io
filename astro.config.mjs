@@ -7,7 +7,7 @@ export default defineConfig({
   site: "https://aiquickst.art",
   integrations: [
     starlight({
-      title: "My Docs",
+      title: "AI QuickStart",
       social: [
         {
           icon: "github",
@@ -43,7 +43,7 @@ export default defineConfig({
         {
           label: "LangChain",
           slug: "workshop/module07",
-        }
+        },
       ],
     }),
   ],
