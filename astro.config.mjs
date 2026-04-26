@@ -40,6 +40,10 @@ export default defineConfig({
           label: "Interactive Development with Jupyter Notebook",
           slug: "workshop/module06",
         },
+        {
+          label: "LangChain",
+          slug: "workshop/module07",
+        }
       ],
     }),
   ],
