@@ -1,0 +1,48 @@
+---
+title: Onboarding
+description: Creating a GitHub Codespace and installing the extensions needs for Python and AI development
+---
+
+import fork_repo from "../../../../assets/onboarding/fork_repo.png";
+import create_fork from "../../../../assets/onboarding/create_fork.png";
+import create_codespace from "../../../../assets/onboarding/create_codespace.png";
+import stop_codespace from "../../../../assets/onboarding/stop_codespace.png";
+import set_default_idle_timeout from "../../../../assets/onboarding/set_default_idle_timeout.png";
+
+In this module, you will learn to set up the development environment that will be used for the rest of the workshop.
+
+## Creating a GitHub Codespace
+
+This workshop will use GitHub Codespaces as the development environment. A GitHub Codespace is a cloud-based development environment that lets you write applications within your browser without needing to download or install anything on your local machine. In addition, you don't have to pay for anything either!  You can access GitHub Codespaces using a free, personal GitHub account and use it for up to 60 hours free per month. You don't even need to provide a payment method to get started. 
+
+> **Note**
+>
+> If you have a GitHub account that is adminstered by your employer or another organization, you may not have access to the resources used in this workshop.  Your organization may have policies that restrict your access. Therefore, I recommend using a free, personal GitHub account to proceed.  If you don't have one, create one.  Again, they're free!
+
+You can create a GitHub Codespace from an existing GitHub repository. Go to the GitHub repository for this workshop at:
+
+[https://github.com/get-aiquickstart/aiquickstart-examples](https://github.com/get-aiquickstart/aiquickstart-examples)
+
+Click the **Fork** button in the upper right to create a copy of the repository in your GitHub account.
+
+<img src={fork_repo.src} alt="Forking the Repository" />
+
+Change the name of the repository on the next page if you need to.  Then click the green **Create fork** button in the lower right.
+
+<img src={create_fork.src} alt="Creating the Fork" />
+
+After the fork is created, click the green **Code** button *(1)* and in the **Codespaces** tab *(2)*, click **Create codespace on main** *(3)*.
+
+<img src={create_codespace.src} alt="Creating the Codespace" />
+
+Creating the codespace will generally take about a minute. Once it's ready, you will see the Visual Studio Code interface in your browser. Once the prompt appears in the Terminal pane at the bottom of the screen, you are ready to configure the development environment.
+
+## Optimizing Your Free Hours
+
+As mentioned above, you can use GitHub Codespaces for free, for up to 60 hours per month. To conserve your free hours, you can stop your Codespace when you're not using it. To stop your Codespace manually, click the **>< Codespaces** button in the lower left corner of the screen. This will display the Command Pallete in the center of the screen. Click on **Stop Current Codespace** to stop the Codespace. At this point the state of the Codespace is saved, and you can later restart it where you left off. This will also immediately stop consuming your free hours.
+
+<img src={stop_codespace.src} alt="Stopping the Codespace" />
+
+Alternatively, a GitHub Codespace will automatically stop after, by default, 30 minutes of inactivity. You can set the idle timeout of the Codespace to between 5 and 240 minutes. To change the idle timeout, from the GitHub website, click on your profile picture in the upper right corner, and select **Settings** from the dropdown menu.  On the left side of the Settings page, click on **Codespaces**. Scroll down to the **Default idle timeout** section and type a new value in the text box. I find 5 minutes to be too limiting so I have mine set to 10 minutes. This way, I'll never waste more than 10 minute of my free hours if I forget to stop the Codespace.  Click the **Save** button to save the new idle timeout value.
+
+<img src={set_default_idle_timeout.src} alt="Setting the Default Idle Timeout" />
