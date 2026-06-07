@@ -5,6 +5,12 @@ description: Using GitHub Codespaces and Jupyter Notebook for Python and AI deve
 
 import run_button from "../../../../assets/python_development/run_button.png";
 import tokens from "../../../../assets/python_development/tokens.png";
+import create_jupyter_notebook from "../../../../assets/python_development/create_jupyter_notebook.png";
+import notebook_and_cell from "../../../../assets/python_development/notebook_and_cell.png";
+import select_environment from "../../../../assets/python_development/select_environment.png";
+import listdir_function_output from "../../../../assets/python_development/listdir_function_output.png";
+import sanity_check from "../../../../assets/python_development/sanity_check.png";
+import tokens_to_words from "../../../../assets/python_development/tokens_to_words.png";
 
 In this module, you will write you first Python code in GitHub Codespaces, and learn how to use Jupyter Notebook for interactive development.
 
@@ -71,6 +77,68 @@ $ python tokens.py
 
 You'll see the same list of tokens.
 
+## Jupyter Notebook
+
+GitHub Codespaces is a fantastic tool for writing Python code because it uses the Visual Studio Code interface. But a text editor is just one of the tools that AI engineers use. Another popular tool is called Jupyter notebook. A Jupyter notebook is a special interface to interact with the Python interpreter. A notebook is a series of cells that contain either Python code or Markdown. Each cell can be run independently of the others. A cell with Python code will output the results of executing the code. A cell with Markdown will render it in the cell.
+
+Recall you installed the **Jupyter** extension in the previous section.  This extension adds the ability to create and use Jupyter notebooks from within Visual Studio Code.  Let's take a look at how to use a Jupyter notebook by continuing to explore the `tiktoken` package.
+
+The Jupyter notebook support in Visual Studio Code requires the `ipykernel` package be install. Use `pip` to install it in the Terminal pane.
+
+```bash
+$ pip install ipykernel
+```
+
+Press **Ctrl - Shift - P** (or **Command - Shift - P on macOS) to open the Command Palette at the top of the screen. Search for `jupyter` and select the command **Create: New Jupyter Notebook**.
+
+<img src={create_jupyter_notebook.src} />
+
+This will create a new Jupyter notebook with a cell in it.
+
+<img src={notebook_and_cell.src} />
+
+Save the notebook as `tokens.ipynb`. Now click the **Select Kernel** button in the upper right corner of the notebook. This will bring up the Command Palette again. Select **Python Environments**. In the Command Palette select a Python environment with the `ipykernel` installed. The current environment will be marked with a star.
+
+<img src={select_environment.src} />
+
+If you don't see an environment with a star, for this course, select the one in `/usr/local`.
+
+In the cell add an import to the `os` module from the Python standard library.
+
+```python
+import os
+```
+
+Press **Shift - Enter** to run the cell and add a new cell below it. There is no output from the first cell because the `import` statement does not return a value. In the new cell call the `listdir` function to get the contents of the current directory.
+
+```python
+os.listdir(".")
+```
+
+Notice that you still get syntax highlighting and code completion with Jupyter notebook. Again, press **Shift - Enter** to run the cell. This time the output is the listing of the current directory.
+
+<img src={listdir_function_output.src} />
+
+In the next cell, copy the contents of `tokens.py` and paste it in the cell. Run the cell with **Shift - Enter**.  Notice the output of the cell is the list of tokens that was displayed in the Terminal pane when you executed `tokens.py` with the Python interpreter.
+
+You can also reverse the encoding process and convert a list of tokens back into text. Use the `decode` method to get the text for the tokens. Run the following code in the new cell with **Shift - Enter**.
+
+```python
+decoded_text = encoding.decode(tokens)
+print(decoded_text)
+```
+
+As a sanity check, let's make sure the original `text` matches the `decoded_text`.
+
+```python
+if decoded_text == text:
+  print("Original and decoded text are the same")
+else:
+  print("Something went wrong")
+```
+
+<img src={sanity_check.src} />
+
 Each token represents all or part of a word. On average, a token represents about 3/4 of a word. Thus the ratio of words to tokens is about 0.75. Divide the number of words in `text` by the number of tokens in `tokens` to verify this.
 
 ```python
@@ -79,10 +147,6 @@ num_tokens = len(tokens)
 print(f"Ratio of words to tokens: {num_words / num_tokens:.2f}")
 ```
 
-## Jupyter Notebook
+<img src={tokens_to_words.src} />
 
-GitHub Codespaces is a fantastic tool for writing Python code because it uses the Visual Studio Code interface. But a text editor is just one of the tools that AI engineers use. Another popular tool is called Jupyter notebook. A Jupyter notebook is a special interface to interact with the Python interpreter. A notebook is a series of cells that contain either Python code or Markdown. Each cell can be run independently of the others. A cell with Python code will output the results of executing the code. A cell with Markdown will render it in the cell.
-
-Recall Let's take a look at how to use a Jupyter notebook by continuing to explore the `tiktoken` package.
-
-You can also reverse the process and convert a list of tokens back into text.
+In the next section, you'll use GitHub Models to start exploring large language models.
