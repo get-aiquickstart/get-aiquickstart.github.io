@@ -4,3 +4,33 @@ description: Using GitHub Codespaces and Jupyter Notebook for Python and AI deve
 ---
 
 In this module, you will write you first Python code in GitHub Codespaces, and learn how to use Jupyter Notebook for interactive development.
+
+## Tokenization
+
+Later in the workshop, you will be using and writing code against large language models or LLMs. If you've used ChatGPT or Claude, you know how this work. The chatbot receives a prompt, and it generates a natural language response. As you might have imagined, there is a lot going on behind the scenes. An LLM such as GPT-5 or Opus 4.6 doesn't understand words. It's a computer application and computers like numbers. The way that LLMs use numbers to understand text is called tokenization. Each word in the prompt and response can be represented by one or more numbers called tokens. Later on, you'll start to develop applications using LLMs and learn a lot more about tokens.
+
+There is a Python package that implements some of the algorithms used by OpenAI to convert text to and from tokens. The package is named `tiktoken` and as a first exercise in using GitHub Codespaces and Jupyter Notebook, we will explore the tokenization process in action.
+
+Again `tiktoken` is distributed as a Python package. To use it in your code, it must be installed. Press  the keyboard shortcut **Ctrl - `** in your GitHub Codespace to open the Terminal pane at the bottom of the window. At the command prompt, use `pip` to install the package.
+
+```bash
+$ pip install tiktoken
+```
+
+Open the Explorer pane with the keyboard shortcut **Ctrl - Shift - E** (or **Command - Shift - E** on macOS). In the folder `02-python-development`, create a new file called `tokens.py`.
+
+In `tokens.py` import the `tiktoken` module.
+
+```python
+import tiktoken
+```
+
+Next add some text to convert to tokens. Create a variable named `text`. In triple quotes, copy the string in `02-python-development/about_gen_ai.txt`.
+
+```python
+text = """
+
+"""
+```
+
+The `tiktoken` module implements several tokenization algorithms.
