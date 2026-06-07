@@ -3,6 +3,9 @@ title: Python Development Using GitHub Codespaces
 description: Using GitHub Codespaces and Jupyter Notebook for Python and AI development
 ---
 
+import run_button from "../../../../assets/python_development/run_button.png";
+import tokens from "../../../../assets/python_development/tokens.png";
+
 In this module, you will write you first Python code in GitHub Codespaces, and learn how to use Jupyter Notebook for interactive development.
 
 ## Tokenization
@@ -33,4 +36,53 @@ text = """
 """
 ```
 
-The `tiktoken` module implements several tokenization algorithms.
+The `tiktoken` module implements several tokenization algorithms.  The `get_encoding` function returns an implementation of a specific tokenization algorithm. The `cl100k_base` algorithm is used by modern LLMs including OpenAI GPT-4.
+
+```python
+encoding = tiktoken.get_encoding("cl100k_base")
+```
+
+Use the `encode` method of the `encoding` to convert the text to a list of tokens.
+
+```python
+tokens = encoding.encode(text)
+```
+
+And print the list of tokens.
+
+```python
+print(tokens)
+```
+
+Run the `tokens.py` file by clicking the **Run** button in the upper right corner of the editor pane.
+
+<img src={run_button.src} alt="Run Button" />
+
+A new tab will open in the Terminal pane at the bottom of the screen. You will see a list of numbers. These are the tokens generated from the text.
+
+<img src={tokens.src} alt="Tokens" />
+
+You can also invoke the Python interpreter in the Terminal pane.  Change the directory to `02-python-development` and start the Python interpreter.
+
+```bash
+$ cd 02-python-development
+$ python tokens.py
+```
+
+You'll see the same list of tokens.
+
+Each token represents all or part of a word. On average, a token represents about 3/4 of a word. Thus the ratio of words to tokens is about 0.75. Divide the number of words in `text` by the number of tokens in `tokens` to verify this.
+
+```python
+num_words = len(text.split())
+num_tokens = len(tokens)
+print(f"Ratio of words to tokens: {num_words / num_tokens:.2f}")
+```
+
+## Jupyter Notebook
+
+GitHub Codespaces is a fantastic tool for writing Python code because it uses the Visual Studio Code interface. But a text editor is just one of the tools that AI engineers use. Another popular tool is called Jupyter notebook. A Jupyter notebook is a special interface to interact with the Python interpreter. A notebook is a series of cells that contain either Python code or Markdown. Each cell can be run independently of the others. A cell with Python code will output the results of executing the code. A cell with Markdown will render it in the cell.
+
+Recall Let's take a look at how to use a Jupyter notebook by continuing to explore the `tiktoken` package.
+
+You can also reverse the process and convert a list of tokens back into text.

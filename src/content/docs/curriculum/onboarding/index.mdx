@@ -8,6 +8,9 @@ import create_fork from "../../../../assets/onboarding/create_fork.png";
 import create_codespace from "../../../../assets/onboarding/create_codespace.png";
 import stop_codespace from "../../../../assets/onboarding/stop_codespace.png";
 import set_default_idle_timeout from "../../../../assets/onboarding/set_default_idle_timeout.png";
+import python_extension from "../../../../assets/onboarding/python_extension.png";
+import trust_install from "../../../../assets/onboarding/trust_install.png";
+import format_settings from "../../../../assets/onboarding/format_settings.png";
 
 In this module, you will learn to set up the development environment that will be used for the rest of the workshop.
 
@@ -46,3 +49,7 @@ As mentioned above, you can use GitHub Codespaces for free, for up to 60 hours p
 Alternatively, a GitHub Codespace will automatically stop after, by default, 30 minutes of inactivity. You can set the idle timeout of the Codespace to between 5 and 240 minutes. To change the idle timeout, from the GitHub website, click on your profile picture in the upper right corner, and select **Settings** from the dropdown menu.  On the left side of the Settings page, click on **Codespaces**. Scroll down to the **Default idle timeout** section and type a new value in the text box. I find 5 minutes to be too limiting so I have mine set to 10 minutes. This way, I'll never waste more than 10 minute of my free hours if I forget to stop the Codespace.  Click the **Save** button to save the new idle timeout value.
 
 <img src={set_default_idle_timeout.src} alt="Setting the Default Idle Timeout" />
+
+## Installing extensions
+
+If you take a look around the Visual Studio Code interface in you GitHub Codespace, you'll notice it's kind of boring. It's not much more than a text editor and  terminal with integrated Git support. The power of Visual Studio Code, and thus GitHub Codespaces is in the tens of thousands of extensions you can install to configure the editor to fit within almost any development workflow. We're going to install some extensions for Python development.
