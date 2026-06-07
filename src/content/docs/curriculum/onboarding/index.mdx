@@ -8,8 +8,10 @@ import create_fork from "../../../../assets/onboarding/create_fork.png";
 import create_codespace from "../../../../assets/onboarding/create_codespace.png";
 import stop_codespace from "../../../../assets/onboarding/stop_codespace.png";
 import set_default_idle_timeout from "../../../../assets/onboarding/set_default_idle_timeout.png";
+import extensions_icon from "../../../../assets/onboarding/extensions_icon.png";
 import python_extension from "../../../../assets/onboarding/python_extension.png";
 import trust_install from "../../../../assets/onboarding/trust_install.png";
+import font_size from "../../../../assets/onboarding/font_size.png";
 import format_settings from "../../../../assets/onboarding/format_settings.png";
 
 In this module, you will learn to set up the development environment that will be used for the rest of the workshop.
@@ -53,3 +55,29 @@ Alternatively, a GitHub Codespace will automatically stop after, by default, 30 
 ## Installing extensions
 
 If you take a look around the Visual Studio Code interface in you GitHub Codespace, you'll notice it's kind of boring. It's not much more than a text editor and  terminal with integrated Git support. The power of Visual Studio Code, and thus GitHub Codespaces is in the tens of thousands of extensions you can install to configure the editor to fit within almost any development workflow. We're going to install some extensions for Python development.
+
+First, open the Extensions pane in the sidebar by clicking on this icon:
+
+<img src={extensions_icon.src} />
+
+Alternatively you can use the keyboard shortcut **Ctrl - Shift - X** (or **Command - Shift - X** on macOS)
+
+In the search box at the top of the pane, searcht for `python`. The official Python extension from Microsoft should be at the top of the list, as shown below. Click the green **Install** to install the extension. This might take a few minutes.
+
+<img src={python_extension.src} />
+
+Repeat the process for the **Jupyter** and **Ruff** extensions. For the **Ruff** extension you'll need to trust the extension to install it.
+
+<img src={trust_install.src} />
+
+Now we need to configure a few settings. Press **Ctrl - ,** (or **Command - ,** on macOS) to open the Settings pane. In the search box at the top, search for `font size`. I'm going to change the font size for the editor, as shown here, to 20 as 14 is a little small for screenshots. I'll also change the Terminal font size as well.
+
+<img src={font_size.src} />
+
+Next, search for `format` *(1)*. Check the **Format on Save** checkbox *(2)*. And select **Ruff** for **Default Formatter** from the dropdown box.
+
+<img src={format_settings.src} />
+
+Now when you save a Python file, the **Ruff** extension will apply consistent formatting to the code.
+
+You're all set to write your first Python code in the next section!
