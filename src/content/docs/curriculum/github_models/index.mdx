@@ -3,4 +3,74 @@ title: GitHub Models
 description: Exploring GitHub Models 
 ---
 
+import github_models from "../../../../assets/github_models/github_models.png";
+import model_catalog from "../../../../assets/github_models/model_catalog.png";
+import azure_openai_service from "../../../../assets/github_models/azure_openai_service.png";
+import openai_gpt_41_mini from "../../../../assets/github_models/openai_gpt_41_mini.png";
+import model_card from "../../../../assets/github_models/model_card.png";
+import playground_button from "../../../../assets/github_models/playground_button.png";
+import model_playground from "../../../../assets/github_models/model_playground.png";
+import response_stats from "../../../../assets/github_models/response_stats.png";
+
 In this module, we will explore GitHub Models, an LLM host provided by GitHub offering a variety of models including both open source and proprietary models from OpenAI, Microsoft, xAI, Meta and more.
+
+## Exploring the GitHub Models Catalog
+
+GitHub Models can be found at [https://github.io/models](https://github.io/models)
+
+You will be taken to GitHub Models on the GitHub Marketplace. And you'll be shown some featured models as shown below. But let's take a look at the full catalog by clicking on the **explore the full model catalog** link.
+
+<img src={github_models.src} />
+
+Here you can see the full list of large language models hosted on GitHub Models.
+
+<img src={model_catalog.src} />
+
+You can filter this list. For example, click the **Publisher** dropdown and select **Azure OpenAI Service**.
+
+<img src={azure_openai_service.src} />
+
+This will show you all of the OpenAI models hosted on GitHub Models like GPT-4o and GPT-4.1. Let's take a closer look at one of the models. Click on the card for **OpenAI GPT-4.1-mini**.
+
+<img src={openai_gpt_41_mini.src} />
+
+This shows the model information page for GPT-4.1-mini. Direct your attention to the right sidebar.
+
+<img src={model_card.src} />
+
+There is a short description of the model *(1)*. The **Context** is the maximum number of tokens in the prompt and response *(2)*. The **Training Date** shows the date the model was most recently trained *(3)*. The **Tags** show the capablilities of the model *(4)*. This model is trained for chat, but is also multimodal. And it supports 27 different languages *(5)*.
+
+But what I want to focus on is the **Free rate limit tier** *(6)*. Click on the **Low** link.
+
+The table on this page shows the rate limits for different tiers and models. At the top are the GitHub Copilot plans. Your free, personal, GitHub account includes the **Copilot Free** plan. For the **Low** tier, you are limited to 150 requests per day and 15 requests per minute. Also the size of you prompt and response are restricted to 8000 and 4000 tokens respectively. That might not seem like a lot compared to the context size on the model card. But recalling that a token is about 3/4 of a word, 8000 tokens is about 6000 words. That's somewhere in the neighborhood of 15 pages. While this is not enough for a production application, you'll find it is more than enough to experiment in this course.
+
+The *Low* rate limit tier is for the smaller mini or nano models. The larger models fall under the **High** rate limit tier and have lower limits. The **Embedding** rate limit tier we will use when we look at RAG later in the course.
+
+> **Note**
+>
+> There are also some models that are not available on the free plan, including GPT-5. However, OpenAI does offer a way to get access to GPT-5 and other models for free. However, there are caveats:
+> 1. You must add a billing method and put nominal funds into your account (~$5-10 USD)
+> 2. If the free tier limit is exceeded, you will be automatically billed for any overages
+> 3. Any prompts and responses used on the free tier will be used for training models and will not be private.
+>
+> See the [OpenAI blog](https://help.openai.com/en/articles/10306912-sharing-feedback-evaluation-and-fine-tuning-data-and-api-inputs-and-outputs-with-openai) for more details.
+
+## Experimenting with Models in a Playground
+
+Go back to the model information page. Click on the **Playground** button in the upper right.
+
+<img src={playground_button.src} />
+
+You'll be taken to the Playground which has a ChatGPT-like interface. You can use this interface to interact with the model. Enter a prompt in the text box at the bottom with the placeholder *Type your prompt...*. Something like:
+
+```
+What are three advantages of OpenAI GPT-4.1 over GPT-3.5?
+```
+
+<img src={model_playground.src} />
+
+Similar to ChatGPT, the playground will display the generated response and render any Markdown.
+
+<img src={response_stats.src} />
+
+In addition the number of tokens consumed for the prompt and response, and the time took to process the request are in the upper right of the playground.
