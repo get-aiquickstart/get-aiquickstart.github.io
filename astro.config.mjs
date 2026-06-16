@@ -40,7 +40,7 @@ export default defineConfig({
               slug: "curriculum/openai_sdk",
             },
             {
-              label: "Chat History (coming soon!)",
+              label: "Chat History",
               slug: "curriculum/chat_history",
             },
             {

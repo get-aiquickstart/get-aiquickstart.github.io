@@ -3,4 +3,114 @@ title: Chat History
 description: Managing and utilizing chat history with OpenAI SDK in Python and Jupyter Notebook
 ---
 
+> **Example Code**
+>
+> Examples from this module can be found on [GitHub](https://github.com/get-aiquickstart/aiquickstart-examples/tree/main/05_chat_history)
+
+## Chatting with Jupyter
+
+We can also use the OpenAI SDK for Python in a Jupyter Notebook. Create a new notebook as described in [Python Development](https://www.aiquickst.art/curriculum/python_development/#jupyter-notebook). In the first cell, import the `os` module and the `OpenAI` class from the `openai` package:
+
+```python
+import os
+from openai import OpenAI
+```
+
+In the next cell, retrieve the `GH_MODELS_PAT` (or the name you used for the secret in the previous module)
+
+```python
+GH_MODELS_PAT = os.getenv("GH_MODELS_PAT")
+```
+
+In a new cell, create an instance of the `OpenAI` client:
+
+```python
+client = OpenAI(
+    base_url="https://models.github.ai/inference",
+    api_key=GH_MODELS_PAT
+)
+```
+
+In the next cell, create a function that accepts a prompt and returns the response from the client:
+
+```python
+def ask_client(prompt):
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
+
+In the next cell, ask the client what year Microsoft was founded:
+
+```python
+ask_client("What year was Microsoft founded?")
+```
+
+The model should respond with something like "Microsoft was founded in 1975."
+
+In the next cell, ask what year the company went public:
+
+```python
+ask_client("What year did the company go public?")
+```
+
 ## Implementing Chat History
+
+The response has no idea what company you're referring to! Prompts to an LLM are a lot like HTTPS requests. In other words, they are stateless. The model doesn't keep track of previous requests. So we have to do that ourselves. Remember that you can pass a list of messages to the `messages` parameter of the `create` function. As you saw in the previous module, each message is a dictionary with a `role` and `content` key. You also saw the `system` and `user` roles for the system prompt and the user prompt. There's also an `assistant` role for responses from the LLM. We can create a list of messages with the system prompt. As we chat with the model, we can append the user prompts and assistant responses to the list of messages. Then each time we chat with the model, we can pass the entire history of messages. This is how the model can use the context from the conversation to provide more relevant responses.
+
+First, in a new cell, create a list of messages with the system prompt for a tech industry analyst from `05_chat_history/tech_analyst_prompt.txt`:
+
+```python
+with open("05_chat_history/tech_analyst_prompt.txt") as f:
+    system_prompt = f.read()
+
+history = [
+    {
+        "role": "system",
+        "content": system_prompt
+    }
+]
+```
+
+In the next cell, create a new function, `ask_client_with_history`. The function should accept a prompt and append it to the list of messages.  Then call the `create` function and pass the `history` to the `messages` keyword argument.  Get the response from the model and append it to the history with the `assistant` role. Next, return the response from the model:
+
+```python
+def ask_client_with_history(prompt):
+    history.append({
+        "role": "user",
+        "content": prompt
+    })
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=history
+    )
+    assistant_message = response.choices[0].message.content
+    history.append({
+        "role": "assistant",
+        "content": assistant_message
+    })
+    return assistant_message
+```
+
+In a new cell, ask the model what year Microsoft was founded, using the `ask_client_with_history` function:
+
+```python
+ask_client_with_history("What year was Microsoft founded?")
+```
+
+The model should have a similar response to the previous time you asked. 
+
+Now in a new cell, print the `history` variable to see the list of messages:
+
+```python
+print(history)
+```
+
+The next time you call `ask_client_with_history`, this is the list of messages that will be passed to the model. Now ask the model about Microsoft going public:
+
+```python   
+ask_client_with_history("What year did the company go public?")
+```
+
+The model will be able to understand the "the company" is referring to "Microsoft" because of the context provided by the message history.  It will say something about 1986 being the year Microsoft went public.
