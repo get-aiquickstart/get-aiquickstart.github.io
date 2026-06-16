@@ -3,4 +3,52 @@ title: OpenAI SDK
 description: Using the OpenAI SDK for Python to interact with LLMs hosted on GitHub Models
 ---
 
-In this module, you will write your first AI code using the OpenAI SDK for Python.
+import fine_grained_tokens from "../../../../assets/openai_sdk/fine_grained_tokens.png";
+import new_token_part_one from "../../../../assets/openai_sdk/new_token_part_one.png";
+import new_token_part_two from "../../../../assets/openai_sdk/new_token_part_two.png";
+import generate_token_popup from "../../../../assets/openai_sdk/generate_token_popup.png";
+import copy_token from "../../../../assets/openai_sdk/copy_token.png";
+    
+Experimenting with the playground lets you see the power and possibility of Large Language Models and generative AI. To integrate that same power and possibility into your applications, you’ll need to access an API. GitHub Models exposes a REST API you can use to bring generative AI into your applications. The REST API emulates the official OpenAI API that you use to access the OpenAI LLMs. Being a REST API, you can access it from any programming language that supports HTTP calls. For popular languages OpenAI maintains SDKs to make that integration less difficult. SDKs exist for .NET, Go, Java, JavaScript, and the choice for this workshop, Python. As the GitHub Models API emulates the OpenAI API, you can use the OpenAI SDKs with GitHub Models with a few configuration changes.
+
+## Installing the SDK
+
+The OpenAI SDK for Python is distributed as a package just like the `tiktoken` package you installed in a previous module. To install the OpenAI SDK for Python, use `pip` to install the `openai` package.
+
+```bash
+$ pip install openai
+```
+
+## Authenticating with GitHub Developer Tokens
+
+You'll have to authenticate yourself with the OpenAI SDK for Python.  On the OpenAI platform you would be provided with an API key that you would give the OpenAI client from the SDK to access the OpenAI models. With GitHub Models, you will generate a GitHub Developer Token which will serve the same purpose except that the models will be hosted on GitHub Models instead of the OpenAI platform.
+
+To generate a GitHub Developer Token, go to [GitHub Apps]https://github.com/settings/apps). Expand the **Personal Access Tokens** section on the left sidebar and click **Fine-grained tokens**.
+
+<img src={fine_grained_tokens.src} />
+
+Click the green **Generate new token** button.
+
+Give your token a name, I'll call mine `AI_QUICKSTART_TOKEN`. You will need to pick another name as it must be globally unique.
+
+You can change the **Expiration** date of the token.  It is not recommended to set it to never expire. 
+
+<img src={new_token_part_one.src} />
+
+Scroll down to the **Repository access** section. Here you can restrict access to certain repositories. But for this demo, you can leave it set to **Public repositories**.
+
+In the **Permissions** section, click the **+ Add permissions** button. In the dropdown, search for and select **GitHub Models**. Then click the **Generate token** button.
+
+<img src={new_token_part_two.src} />
+
+A popup will appear confirming you want to create a new token. Click the **Generate token** button in the popup.
+
+<img src={generate_token_popup.src} />
+
+You'll see the details of your new token. It will start with `github_pat` and then some random characters (I've blurred mine out). You will need to immediately copy this token and save it somewhere secure because you won't be able to retrieve the value again.
+
+<img src={copy_token.src} />
+
+But where to save it?
+
+## GitHub Secrets
