@@ -13,14 +13,6 @@ import create_secret from "../../../../assets/openai_sdk/create_secret.png";
     
 Experimenting with the playground lets you see the power and possibility of Large Language Models and generative AI. To integrate that same power and possibility into your applications, you’ll need to access an API. GitHub Models exposes a REST API you can use to bring generative AI into your applications. The REST API emulates the official OpenAI API that you use to access the OpenAI LLMs. Being a REST API, you can access it from any programming language that supports HTTP calls. For popular languages OpenAI maintains SDKs to make that integration less difficult. SDKs exist for .NET, Go, Java, JavaScript, and the choice for this workshop, Python. As the GitHub Models API emulates the OpenAI API, you can use the OpenAI SDKs with GitHub Models with a few configuration changes.
 
-## Installing the SDK
-
-The OpenAI SDK for Python is distributed as a package just like the `tiktoken` package you installed in a previous module. To install the OpenAI SDK for Python, use `pip` to install the `openai` package.
-
-```bash
-$ pip install openai
-```
-
 ## Authenticating with GitHub Developer Tokens
 
 You'll have to authenticate yourself with the OpenAI SDK for Python.  On the OpenAI platform you would be provided with an API key that you would give the OpenAI client from the SDK to access the OpenAI models. With GitHub Models, you will generate a GitHub Developer Token which will serve the same purpose except that the models will be hosted on GitHub Models instead of the OpenAI platform.
@@ -71,7 +63,7 @@ Give the secret a name, I'll call mine `GH_MODELS_PAT`. Past the token copied fr
 
 ## Accessing the Developer Token
 
-In the 04_openai_sdk folder of the examples repository, create a new file called `chat.py`. At the top of the file, import the `os` module fromt he Python standard library.
+In the `04_openai_sdk` folder of the examples repository, create a new file called `chat.py`. At the top of the file, import the `os` module fromt he Python standard library.
 
 ```python
 import os
@@ -93,3 +85,63 @@ Run the file and you if see four random characters printed, you're ready to writ
 
 ## Using the OpenAI SDK
 
+The OpenAI SDK for Python is distributed as a package just like the `tiktoken` package you installed in a previous module. To install the OpenAI SDK for Python, use `pip` to install the `openai` package.
+
+```bash
+$ pip install openai
+```
+
+In `chat.py`, import the `OpenAI` client from the `openai` package.
+
+```python
+from openai import OpenAI   
+```
+
+For use with GitHub Models, the `OpenAI` client needs two keyword arguments.  The first is `base_url` which is the endpoint to access the REST API for GitHub Models. This is always `https://models.github.ai/inference`. The second keyword argument is the `api_key` which the the GitHub Developer Token you retrieved in the presvious step. So you can create an instance of the `OpenAI` client like this:
+
+```python
+client = OpenAI(
+    base_url="https://models.github.ai/inference",
+    api_key=GH_MODELS_PAT
+)
+```
+
+## Chatting via the OpenAI SDK
+
+Recall that in the playground you used a system prompt to define how the model behaves. You can also send a system prompt to the OpenAI SDK with a message. Messages are constructed as Python dictionaries. The dictionary has two keys, `role` and `content`. For a system message, the `role` key has a value of `system`. The `content` key is the system prompt.  I'll use the system prompt from the previous module:
+
+```python
+with open("../03_github_models/customer_service_prompt.txt", "r") as f:
+    customer_service_prompt = "".join(f.readlines())
+
+system_message = {
+    "role": "system",
+    "content": customer_service_prompt
+}
+```
+
+You can create a message for the user prompt in the same way. Just set the `role` key to `user`.
+
+```python   
+user_message = {
+    "role": "user",
+    "content": "I was charged twice for the same item. What do I do?"
+}
+```
+
+Now you can send the messages to the model using the `client.chat.completions.create` method. You pass the `messages` as a list of the dictionaries you just created. You'll need to specify the `model` as well. To use GTP-4.1-mini on GitHub Models, set the `model` to `openai/gpt-4.1-mini`. Optionally you can set the `temperature` and `top_p` as well.
+
+```python
+response = client.chat.completions.create(
+    messages=[system_message, user_message],
+    model="openai/gpt-4.1-mini",
+    temperature=0.3,
+    top_p=0.7,
+)
+```
+
+This returns a response that can have multiple completions. By default, there is only one but it is still in a list so you'll need to access at index 0 of the `choices`. The choice has a `message` which has `content`. Print the `content` to see the text of the generated response.
+
+```python
+print(response.choices[0].message.content)
+```
