@@ -8,6 +8,7 @@ import new_token_part_one from "../../../../assets/openai_sdk/new_token_part_one
 import new_token_part_two from "../../../../assets/openai_sdk/new_token_part_two.png";
 import generate_token_popup from "../../../../assets/openai_sdk/generate_token_popup.png";
 import copy_token from "../../../../assets/openai_sdk/copy_token.png";
+import new_secret_button from "../../../../assets/openai_sdk/new_secret_button.png";
     
 Experimenting with the playground lets you see the power and possibility of Large Language Models and generative AI. To integrate that same power and possibility into your applications, you’ll need to access an API. GitHub Models exposes a REST API you can use to bring generative AI into your applications. The REST API emulates the official OpenAI API that you use to access the OpenAI LLMs. Being a REST API, you can access it from any programming language that supports HTTP calls. For popular languages OpenAI maintains SDKs to make that integration less difficult. SDKs exist for .NET, Go, Java, JavaScript, and the choice for this workshop, Python. As the GitHub Models API emulates the OpenAI API, you can use the OpenAI SDKs with GitHub Models with a few configuration changes.
 
@@ -52,3 +53,9 @@ You'll see the details of your new token. It will start with `github_pat` and th
 But where to save it?
 
 ## GitHub Secrets
+
+The best practice for storing sensitive values, such as a GitHub Developer Token, is to use an environment variable. On your local machine, the recommended way to set environment variables is to put then in a `.env` file and use the `python-dotenv` package to load them. Then you can access the token using the `os` module from the Python standard library. And this will work in a GitHub Codespace too. But there is a better way from a GitHub Codespace to access senstive values. It's called GitHub Secrets.
+
+A value stored in GitHub Secrets is secured stored and accessible to your GitHub Codespace as an environment variable. To access GitHub Secrets go to your [Codespaces settings](https://github.com/settings/codespaces) in your GitHub account. Under the **Secrets** section, click the **New secret** button.
+
+<img src={new_secret_button.src} />
