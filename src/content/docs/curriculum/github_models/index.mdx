@@ -11,6 +11,11 @@ import model_card from "../../../../assets/github_models/model_card.png";
 import playground_button from "../../../../assets/github_models/playground_button.png";
 import model_playground from "../../../../assets/github_models/model_playground.png";
 import response_stats from "../../../../assets/github_models/response_stats.png";
+import system_prompt from "../../../../assets/github_models/system_prompt.png";
+import parameters from "../../../../assets/github_models/parameters.png";
+import customer_service_response from "../../../../assets/github_models/customer_service_response.png";
+import compare_button from "../../../../assets/github_models/compare_button.png";
+import compare_customer_service_prompt from "../../../../assets/github_models/compare_customer_service_prompt.png";
 
 In this module, we will explore GitHub Models, an LLM host provided by GitHub offering a variety of models including both open source and proprietary models from OpenAI, Microsoft, xAI, Meta and more.
 
@@ -71,6 +76,65 @@ What are three advantages of OpenAI GPT-4.1 over GPT-3.5?
 
 Similar to ChatGPT, the playground will display the generated response and render any Markdown.
 
+Keep in mind that playground usage counts towards your free quota. So you just used one of your 150 daily requests for gpt-4.1-mini.
+
 <img src={response_stats.src} />
 
 In addition the number of tokens consumed for the prompt and response, and the time took to process the request are in the upper right of the playground.
+
+## Model Paramters
+
+Let's turn to the left sidebar in GitHub Models. At the top are two tabs: **Parameters** and **Details**. The **Details** tab contains a lot of the same information you would find on the model card such as the context size, the training cutoff date and the rate limits.
+
+The **Parameters** tab lets you customize the model behavior. 
+
+First notice the **System prompt**. The system prompt lets you provide instructions to the LLM before any requests are processed. You can see an example of a system prompt in the repository under `03_github_models/customer_service_prompt.txt`.  Notice what the system prompt contains:
+
+- Goals such as "greet the customer", "acknowledge their concern" and "provide clear, step-by-step help"
+- Rules: "use a friendly and professional tone" and "apologize when appropriate"
+- Restrictions: "if you don't know the answer, offer to escalate or find more information"
+
+Copy and paste the contents of `customer_service_prompt.txt` into the **System prompt** text area in the **Parameters** tab.
+
+<img src={system_prompt.src} />
+
+Leave the **Response format** set to **Text**. The **Max Completion Tokens** sets the maximum number of tokens the model can generate in a single response. Keep in mind for the free tier, the maximum is 4000 tokens.
+
+The **Temperature** parameters controls the "creativity" or how random the model's responses are. This is a number between 0 and 1 inclusive. A higher temperature will result in more random responses, while a lower temperature will result in more predictable responses.
+
+The **Top P** parameter determines the size of the pool of candidate tokens from which to generate the response. When generating a response, the LLM will determine the tokens that are most likely to come next based on the prompt. The value of **Top P** instructs the model how many of those tokens to consider when generating the response.  **Top P** is also a number between 0 and 1 inclusive.  For example, if **Top P** is set to 0.5, the model will only consider the top 50% of the pool of candidate tokens.
+
+For this demo, set the values in the **Parameters** tab as follows:
+- **Max Completion Tokens**: `2000`
+- **Temperature**: `0.3`
+- **Top P**: `0.7`
+
+<img src={parameters.src} />
+
+These settings - low **Temperature** and high **Top P** - will yield a response that is professional while at the same time not as dry and predicatable as a lower **Top P** value would produce.
+
+Using the text input at the bottom of the playground, enter the following prompt:
+
+```
+I was charged twice for the same item. What do I do?
+```
+
+Send the prompt and notice how the model's response falls within the guidelines established by the system prompt. Again, the parameters we set allow for some creativity in the response, so your response will likely be different than what you see here.
+
+<img src={customer_service_response.src} />
+
+## Comparing Model Responses
+
+The playground also has a feature to compare the responses of different models to the same prompt. Click the **Compare** button next to the **Model** dropdown in the upper left of the playground and select **OpenAI GPT-4.1** from the list of models.
+
+<img src={compare_button.src} />
+
+The parameters set above will be applied to both models.  Try a different prompt such as:
+
+```
+I bought the wrong item. How can I return it?
+```
+
+Notice that the responses from the two models still comply with the instructions in the system prompt.  But the response from the larger GPT-4.1 model is longer.  It also includes more detailed instructions.  Also notice that it is formatted with Markdown and the Markdown is rendered in the playground chat area.  The GPT-4.1 model may take longer to generate a response and consume more tokens.
+
+<img src={compare_customer_service_prompt.src} />
