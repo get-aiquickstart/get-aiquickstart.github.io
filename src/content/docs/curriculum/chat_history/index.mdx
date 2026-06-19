@@ -3,6 +3,11 @@ title: Chat History
 description: Managing and utilizing chat history with OpenAI SDK in Python and Jupyter Notebook
 ---
 
+import fastapi_docs from "../../../../assets/chat_history/fastapi_docs.png";
+import chat_endpoint from "../../../../assets/chat_history/chat_endpoint.png";
+import execute_prompt from "../../../../assets/chat_history/execute_prompt.png";
+import model_response from "../../../../assets/chat_history/model_response.png";
+
 > **Example Code**
 >
 > Examples from this module can be found on [GitHub](https://github.com/get-aiquickstart/aiquickstart-examples/tree/main/05_chat_history)
@@ -114,3 +119,107 @@ ask_client_with_history("What year did the company go public?")
 ```
 
 The model will be able to understand the "the company" is referring to "Microsoft" because of the context provided by the message history.  It will say something about 1986 being the year Microsoft went public.
+
+## A Web ChatBot
+
+The Jupyter Notebook gives you an idea of how the chat history can be implemented. In a real world application, you're not going to expect the user, especially non-technical users, to interact with a Jupyter Notebook. Most users who interact with a chatbot are used to a conversational UI like you might find in ChatGPT.
+
+In this section, we will implement a backend REST API with FastAPI that accepts a prompt and return the response from the LLM. The backend will also manage the chat history. Then I have provided a simple React frontend that can be used to send prompts and display the responses.
+
+> **Note**:
+>
+> If you want to learn more about Fastapi, check out the [FastAPI QuickStart](https://fastapi.pyquickst.art/) which is part of the Python QuickStart.
+
+In the folder `05_chat_history`, there is a `fastapigpt/backend` folder with the starter code for the FastAPI backend in `api.py`.  Most of this code is boilerplate for setting up the FastAPI application. The `GITHUB_TOKEN` constant will be retrieved from GitHub Secrets using the `os` module. The `MODEL` and `SYSTEM_PROMPT` you can change or use the values provided.
+
+For the first `TODO` comment, initialize the `OpenAI` client just like you did in the Jupyter Notebook, using the `GITHUB_TOKEN` for the `api_key` and the same `base_url` as before.
+
+```python
+client = OpenAI(
+    base_url="https://models.github.ai/inference",
+    api_key=GITHUB_TOKEN
+)
+```
+
+The next `TODO` comment is a placeholder for the chat history. Again, create variable called `chat_history` and that a `list` of `dict` that have keys and values as strings. Then initialize it with a message for the system prompt:
+
+```python
+chat_history: list[dict[str, str]] = [
+    {
+        "role": "system",
+        "content": SYSTEM_PROMPT
+    }
+]
+```
+
+The final set of `TODO` comments is a placeholder for the impkementation of the `chat` function. 
+
+```python
+@app.post("/api/chat", response_model=ChatResponse)
+def chat(request: ChatRequest) -> ChatResponse:
+```
+
+Notice that the `chat` function is decorated with the FastAPI `@app.post("/api/chat")` decorator. This tells FastAPI to invoke the `chat` function whenever a POST request is made to the `/api/chat` endpoint. The `chat` function expects a JSON payload with a `prompt` key which will be transformed into a `ChatRequest` object to be used inside of the function. Also notice the `chat` function returns a `ChatResponse` object which has a field for the response from the model. FastAPI will transform the `ChatResponse` object into a JSON response to be sent back to the client.
+
+Now for the implementation. First, get the user prompt from the `ChatRequest` objeect and append it to the `chat_history` list in a `dict` with the `role` set to `user`:
+
+```python
+user_message = {"role": "user", "content": request.prompt}
+chat_history.append(user_message)
+```
+
+Next, call the `client.chat.completions.create` function and pass it the `MODEL` and the `chat_history` list. Then get the `content` from the `response`.
+
+```python
+response = client.chat.completions.create(
+    model=MODEL,
+    messages=chat_history
+)
+content = response.choices[0].message.content
+```
+
+Then append the model's response to the `chat_history` list in a `dict` with the `role` set to `assistant`:
+
+```python
+assistant_message = {"role": "assistant", "content": content}
+chat_history.append(assistant_message)
+```
+
+Finally, return the model's response wrapped in a `ChatResponse` object:
+
+```python
+return ChatResponse(response=content)
+```
+
+> **Note**:
+>
+> You can find the complete code for `api.py` in the `05_chat_history/finished/fastapigpt/backend` folder.
+
+## Try Out the API
+
+Save the `starter.py` file. Run the API with the command:
+
+```bash
+uvicorn starter:app --reload
+```
+
+The server will start on `localhost` and listen on port `8000`. You can test the API using the built in API docs at `http://localhost:8000/docs`.
+
+<img src={fastapi_docs.src} />
+
+Expand the `POST /api/chat` endpoint and click the **Try it out** button. 
+
+<img src={chat_endpoint.src} />
+
+The textarea contains JSON with a `prompt` key, the same as the `ChatRequest` object in the code. Change the value of the `prompt` key to "What year was Microsoft founded?" and click the **Execute** button.
+
+<img src={execute_prompt.src} />
+
+Scroll down to the **Server response** in the **Responses** section. You will see the response from the model in the `response` key of the JSON payload. This matches the structure of the `ChatResponse` object in the code.
+
+<img src={model_response.src} />
+
+Execute the endpoint again with a different prompt, "What year did the company go public?". The response will be something about the year 1986, when Microsoft went public. The model is able to infer that "the company" is referring to "Microsoft" because the chat history is being aggregated and sent with each call to the `create` function for the endpoint.
+
+## Connecting the Conversational UI (In Progress)
+
