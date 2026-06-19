@@ -8,6 +8,24 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "AI QuickStart",
+      head: [
+        {
+          tag: 'script',
+          attrs: {
+            async: true,
+            src: 'https://www.googletagmanager.com/gtag/js?id=G-3GTSPZR1PG',
+          },
+        },
+        {
+          tag: 'script',
+          content: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3GTSPZR1PG');
+          `,
+        },
+      ],
       social: [
         {
           icon: "github",
