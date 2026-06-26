@@ -4,3 +4,109 @@ description: Using LangChain to build applications with LLMs hosted on GitHub Mo
 ---
 
 ## LangChain
+
+Before using LangChain, install the `langchain` package. Since we will be working with OpenAI models, install the `langchain-openai` package. It will also install the `langchain` package as a dependency.
+
+```bash
+pip install langchain-openai
+```
+
+## Models
+
+The `ChatOpenAI` class is a wrapper around the OpenAI API and is used to interact with the OpenAI models. Import it from the `langchain_openai` package.
+
+```python
+from langchain_openai import ChatOpenAI
+```
+
+The `ChatOpenAI` class expects a couple of keyword arguments, the first of which is the `api_key`. This is the GitHub developer token you stored in the secrets. Next is the `model`, and we will continue to use the `openai/gpt-4-mini` model. Again, notice the model name is prefixed with `openai/` since we are using the GitHub-hosted OpenAI models.  And also for GitHub Models, include the `base_url` and use `https://models.github.ai/inference` as the URL for the endpoint. Optionally you could set the `temperature` to control the creativity of the response.
+
+```python
+llm = ChatOpenAI(
+    api_key=os.environ.get("GH_MODELS_PAT"),
+    model="openai/gpt-4-mini",
+    base_url="https://models.github.ai/inference",
+    temperature=0.7
+)
+```
+
+To send a prompt to the LLM, call the `invoke` method and pass in the prompt as a string.
+
+```python
+response = llm.invoke("When was Microsoft founded?")
+```
+
+The `invoke` method returns an `AIMessage` object.  The actual text of the response is in the `content` attribute.
+
+```python
+print(response.content)
+```
+
+## Prompts
+
+In addition to wrappers for LLMs, LangChain also includes classes for the other components of a typical LLM application. The `ChatPromptTemplate` class manages and generates prompts for an LLM. It lives in the `langchain_core.prompts` module.
+
+```python
+from langchain_core.prompts import ChatPromptTemplate
+```
+
+To create a prompt template, call the `from_messages` class method. The messages passed in the method are a list of tuples (not dictionaries as you saw for the OpenAI API).  Each tuple has two elements, the role, and the content. The roles are the same as the OpenAI API, such as `system` or `user`.
+
+```python
+prompt_template = ChatPromptTemplate.from_messages([
+    ("system", "You are a tech analyst that answers questions about big tech companies."),
+    ("user", "When was Microsoft founded?")
+])
+```
+To generate the prompt, call the `invoke` method on the `prompt_template` and pass an empty dictionary. (Humor me, you'll see why in a moment.) The return value can the be used as the prompt for the LLM.
+
+```python
+prompt = prompt_template.invoke({})
+response = llm.invoke(prompt)
+print(response.content)
+```
+
+That might seem like the scenic route if all you need is to send a prompt to the LLM, and you're right. We haven't used the capabilities of the `ChatPromptTemplate` that well. Right now, we can only find out when Microsoft was founded. But what if we wanted to find out when other tech companies were founded? In the user message, we can include a variable enclosed in curly braces. Then when we call the `invoke` method on the `prompt_template`, we can pass in a dictionary with key-values pairs for each variable.
+
+```python
+prompt_template = ChatPromptTemplate.from_messages([
+    ("system", "You are a tech analyst that answers questions about big tech companies."),
+    ("user", "When was {company} founded?")
+])
+
+prompt = prompt_template.invoke({"company": "Microsoft"})
+response = llm.invoke(prompt)
+print(response.content)
+
+prompt = prompt_template.invoke({"company": "Apple"})
+response = llm.invoke(prompt)
+print(response.content)
+```
+
+## Messages
+
+In addition to abstracting the models and prompts, LangChain also abstracts the messages. We've seen three roles for messages, `system`, `user` and `assistant`.  LangChain has classes for each of these roles named `SystemMessage`, `HumanMessage`, and `AIMessage`. These live in the `langchain_core.messages` module.
+
+```python
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+```
+
+Now you can rewrite the prompt template using messages instead of tuples.
+
+```python
+prompt_template = ChatPromptTemplate.from_messages([
+    (SystemMessage(content="You are a tech analyst that answers questions about big tech companies.")),
+    (HumanMessage(content="When was Microsoft founded?"))
+])
+```
+
+Wait? Where did the `{company}` variable go? All of the messages classes are static, they don't support variables. For messages with variables you have to use a message template. Import the `HumanMessagePromptTemplate` from the `langchain_core.prompts` module. Then call the `from_template` class method to create a message template.
+
+```python
+from langchain_core.prompts import HumanMessagePromptTemplate
+
+prompt_template = ChatPromptTemplate.from_messages([
+    (SystemMessage(content="You are a tech analyst that answers questions about big tech companies.")),
+    (HumanMessagePromptTemplate.from_template("When was {company} founded?"))
+])
+```

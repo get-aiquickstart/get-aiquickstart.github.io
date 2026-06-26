@@ -62,7 +62,7 @@ export default defineConfig({
               slug: "curriculum/chat_history",
             },
             {
-              label: "LangChain (coming soon!)",
+              label: "LangChain (in progress)",
               slug: "curriculum/langchain",
             }
           ]
