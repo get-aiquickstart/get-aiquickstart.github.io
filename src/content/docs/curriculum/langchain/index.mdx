@@ -110,3 +110,54 @@ prompt_template = ChatPromptTemplate.from_messages([
     (HumanMessagePromptTemplate.from_template("When was {company} founded?"))
 ])
 ```
+
+Now use the `prompt_template` as before, passing in a dictionary with the `company` key and the name of the company as the value.
+
+```python   
+prompt = prompt_template.invoke({"company": "Microsoft"})
+response = llm.invoke(prompt)   
+print(response.content)
+```
+
+## Output Parsers
+
+Notice that we have to explicitly access the `content` attribute of the `AIMessage` to get the text. LangChain has a collection of *output parsers* that we use to perform post-processing on the output of the LLM. In the `langchain_core.output_parsers` module, there is a `StrOutputParser` class that extracts the content from an `AIMessage`. Import it and create an instance.
+
+```python
+from langchain_core.output_parsers import StrOutputParser
+
+output_parser = StrOutputParser()
+```
+
+Pass the response from the LLM to the `parse` method of the `output_parser` to get the text.
+
+```python
+parsed_output = output_parser.parse(response)
+print(parsed_output)
+```
+
+You'll notice two things. First, the output is the same as before. Second, this is the long way around to get the text. Again humor me.
+
+## LangChain Expression Language (LCEL)
+
+You've now got a complete picture of all of the step in the **pipeline**. The prompt template, with the help of messages, sends a prompt to a model.  The response from the model is then passed to an output parser to pull out the text.
+
+So far in this module, we've been taking responsibility for getting the output of one step in the pipeline and passing it to the next step. It's tedious and error-prone. It also takes a while for someone who didn't write the code to get up to speed.
+
+LangChain has feature called the LangChain Expression Language, or LCEL, that defines the steps of the pipeline in a single, concise, expression. Essentially, LCEL overloads the `|` (pipe) operator to direct the output of one step to the next step.  The result is a **chain**. (Hence the name LangChain.)
+
+```python
+chain = prompt_template | llm | output_parser
+```
+
+Now we call `invoke` on the `chain` and pass in a dictionary with a key for each varaible in the prompt template. The return value is the parsed output from the LLM.
+
+```python
+response = chain.invoke({"company": "Microsoft"})
+print(response)
+
+response = chain.invoke({"company": "Apple"})
+print(response)
+```
+
+And while the output still has not changed (depending on the temperature of the model), the code is much more concise and easier to read. 
