@@ -5,6 +5,10 @@ description: Using LangChain to build applications with LLMs hosted on GitHub Mo
 
 ## LangChain
 
+> **Example Code**
+>
+> Examples from this module can be found on [GitHub](https://github.com/get-aiquickstart/aiquickstart-examples/tree/main/06_langchain)
+
 Before using LangChain, install the `langchain` package. Since we will be working with OpenAI models, install the `langchain-openai` package. It will also install the `langchain` package as a dependency.
 
 ```bash
@@ -41,6 +45,8 @@ The `invoke` method returns an `AIMessage` object.  The actual text of the respo
 ```python
 print(response.content)
 ```
+
+> The full example code for this section can be found in `basic_langchain.py` in the `06_langchain/finished` folder of the GitHub repository.
 
 ## Prompts
 
@@ -83,6 +89,8 @@ response = llm.invoke(prompt)
 print(response.content)
 ```
 
+> The full example code for this section can be found in `prompt_templates.py` in the `06_langchain/finished` folder of the GitHub repository.
+
 ## Messages
 
 In addition to abstracting the models and prompts, LangChain also abstracts the messages. We've seen three roles for messages, `system`, `user` and `assistant`.  LangChain has classes for each of these roles named `SystemMessage`, `HumanMessage`, and `AIMessage`. These live in the `langchain_core.messages` module.
@@ -119,6 +127,8 @@ response = llm.invoke(prompt)
 print(response.content)
 ```
 
+> The full example code for this section can be found in `messages.py` in the `06_langchain/finished` folder of the GitHub repository.
+
 ## Output Parsers
 
 Notice that we have to explicitly access the `content` attribute of the `AIMessage` to get the text. LangChain has a collection of *output parsers* that we use to perform post-processing on the output of the LLM. In the `langchain_core.output_parsers` module, there is a `StrOutputParser` class that extracts the content from an `AIMessage`. Import it and create an instance.
@@ -137,6 +147,8 @@ print(parsed_output)
 ```
 
 You'll notice two things. First, the output is the same as before. Second, this is the long way around to get the text. Again humor me.
+
+> The full example code for this section can be found in `output_parsers.py` in the `06_langchain/finished` folder of the GitHub repository.
 
 ## LangChain Expression Language (LCEL)
 
@@ -161,3 +173,5 @@ print(response)
 ```
 
 And while the output still has not changed (depending on the temperature of the model), the code is much more concise and easier to read. 
+
+> The full example code for this section can be found in `lcel.py` in the `06_langchain/finished` folder of the GitHub repository.
