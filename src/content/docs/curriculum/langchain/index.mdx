@@ -175,3 +175,74 @@ print(response)
 And while the output still has not changed (depending on the temperature of the model), the code is much more concise and easier to read. 
 
 > The full example code for this section can be found in `lcel.py` in the `06_langchain/finished` folder of the GitHub repository.
+
+## Refactoring Chat History
+
+In the previous module, you saw how to implement chat history by tracking the previous messages in a list and passing them to the `client.chat.completions.create` method. To wrap up this module, we'll refactor that code to use LangChain.
+
+First, remove the import for `OpenAI`. Next add import for:
+- `SystemMessage`, `HumanMessage`, and `AIMessage` from the `langchain_core.messages` module
+- `StrOutputParser` from the `langchain_core.output_parsers` module
+- `ChatPromptTemplate` and `HumanMessagePromptTemplate` from the `langchain_core.prompts` module
+- `ChatOpenAI` from the `langchain_openai` package
+
+```python
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from langchain_core.output_parsers import StrOutputParser       
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain_openai import ChatOpenAI
+```
+
+Remove the initializer for the `OpenAI` client and replace it with an initializer for the `ChatOpenAI` class.  
+
+```python
+llm = ChatOpenAI(
+    api_key=os.environ.get("GH_MODELS_PAT", ""),
+    model_name=MODEL,
+    base_url="https://models.github.ai/inference",
+)
+```
+
+The `chat_history` is just a plain list. It will contain objects of type `SystemMessage`, `HumanMessage`, and `AIMessage`.  The first message in the list is a `SystemMessage`. After that is the chat history. LangChain includes a class specifically for a list of messages called `MessagesPlaceholder`. Import it from the `langchain_core.prompts` module and use it to replace the chat history in the prompt template. The `MessagesPlaceholder` class takes a single argument, the name of the variable that will hold the chat history. In this case, we will use `chat_history`. And the current user message is a `HumanMessagePromptTemplate` with a variable for the user input.
+
+```python
+from langchain_core.prompts import MessagesPlaceholder
+
+# ... 
+
+prompt_template = ChatPromptTemplate.from_messages([
+    (SystemMessage(content=SYSTEM_PROMPT)),
+    (MessagesPlaceholder(variable_name="chat_history")),
+    (HumanMessagePromptTemplate.from_template("{prompt}"))
+])
+```
+
+Now set up the chain with the prompt template, the LLM, and the output parser.
+
+```python
+chain = prompt_template | llm | output_parser
+```
+
+Finally, in the `chat` function, replace the code that calls the `client.chat.completions.create` method with a call to the `invoke` method on the chain. Pass in a dictionary with two key-value pairs, one for the user input and one for the chat history.
+
+```python
+content = chain.invoke({"prompt": user_input, "chat_history": chat_history})
+```
+
+Now append the user input to the `chat_history` as a `HumanMessage` and the response from the LLM as an `AIMessage`.
+
+```python
+chat_history.append(HumanMessage(content=request.prompt))
+chat_history.append(AIMessage(content=content))
+```
+
+Run the API with the command:
+
+```bash
+uvicorn starter:app --reload
+```
+
+Got to `https://localhost:8080/docs` in your browser and test the API. You should see the same behavior as before, but now the code is much cleaner and easier to read.
+
+> The full example code for this section can be found in `api.py` in the `06_langchain/finished/fastapigpt` folder of the GitHub repository.
+
